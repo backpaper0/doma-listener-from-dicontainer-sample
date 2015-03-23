@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+group = 'backpaper0'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'sample.Sample'
+
+compileJava.dependsOn processResources
+processResources.destinationDir = compileJava.destinationDir
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.seasar.doma:doma:2.2.0'
+    compile 'com.google.inject:guice:4.0-beta5'
+    compile 'com.h2database:h2:1.4.186'
+}

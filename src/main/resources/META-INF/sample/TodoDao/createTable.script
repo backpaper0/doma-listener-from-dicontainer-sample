@@ -1,0 +1,1 @@
+create table Todo ( id identity, content varchar, done boolean, createdAt timestamp );
