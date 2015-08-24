@@ -1,4 +1,4 @@
-DomaのConfig.getEntityListenerメソッドのサンプル
+DomaのConfig.getEntityListenerProviderメソッドのサンプル
 ================================================================================
 
 [Doma 2.2.0](http://doma.readthedocs.org)の新機能 `Config.getEntityListenerProvider`
