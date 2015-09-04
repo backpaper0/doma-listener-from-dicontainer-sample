@@ -1,8 +1,7 @@
 package sample;
 
-import java.time.LocalDateTime;
+import java.time.Clock;
 
-import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.sql.DataSource;
 
@@ -42,7 +41,6 @@ public class SampleModule extends AbstractModule {
         bind(TodoDao.class).to(TodoDaoImpl.class);
         bind(TodoListener.class);
 
-        Provider<? extends LocalDateTime> createdAtProvider = LocalDateTime::now;
-        bind(LocalDateTime.class).toProvider(createdAtProvider);
+        bind(Clock.class).toInstance(Clock.systemDefaultZone());
     }
 }
