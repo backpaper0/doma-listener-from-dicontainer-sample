@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'eclipse'
 
 group = 'backpaper0'
 version = '1.0-SNAPSHOT'
@@ -22,4 +23,30 @@ dependencies {
     compile 'org.seasar.doma:doma:2.2.0'
     compile 'com.google.inject:guice:4.0-beta5'
     compile 'com.h2database:h2:1.4.186'
+}
+
+eclipse.jdt.file {
+    beforeMerged {
+        file('.settings/org.eclipse.jdt.apt.core.prefs').withWriter('UTF-8') { out ->
+            def props = [
+                'eclipse.preferences.version'         : '1'
+               ,'org.eclipse.jdt.apt.aptEnabled'      : 'true'
+               ,'org.eclipse.jdt.apt.genSrcDir'       : '.apt_generated'
+               ,'org.eclipse.jdt.apt.reconcileEnabled': 'true'
+            ] as Properties
+            props.store(out, '')
+        }
+        file('.factorypath').withWriter('UTF-8') { out ->
+            new groovy.xml.MarkupBuilder(out).factorypath {
+                factorypathentry(
+                    kind: 'EXTJAR',
+                    id: configurations.compile.find { it.name ==~ /doma.*/ }.absolutePath,
+                    enabled: true,
+                    runInBatchMode: false)
+            }
+        }
+    }
+    withProperties { props ->
+        props['org.eclipse.jdt.core.compiler.processAnnotations'] = 'enabled'
+    }
 }
